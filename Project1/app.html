@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>3D Surface Plotter</title>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link rel="stylesheet" href=".\app.css"></link>
+        <link rel="stylesheet" href=".\noUiSlider-13.1.1\distribute\nouislider.min.css"></link>
+    </head>
+<body class="body--shaded">
+    <div class="wrapper">
+        <div class="main">
+            <div class="preamble">
+                <h1>3D Surface Plotter</h1>
+                <hr>
+                <p class="blurb">
+                    An online tool to create 3D plots of surfaces.
+                </p>
+                <!-- <p class="tags">
+
+                    <a href="/maths">Maths</a>
+                    <a href="/maths/geometry/">Geometry</a>
+                    <a href="/search/?q=graph">Graph</a>
+                    <a href="/search/?q=plot">plot</a>
+                    <a href="/search/?q=surface">surface</a>
+
+                </p> -->
+                <hr>
+                <!-- <div class="social-buttons">
+                    <div class="social-button social-button--google-classroom">
+                    </div>
+
+                    <div class="social-button social-button--facebook">
+                    </div>
+
+                    <div class="social-button social-button--twitter">
+                    </div>
+
+                </div> -->
+                <!-- <hr> -->
+            </div>
+
+            <div id="demo" class="">
+                <div id="visualization">
+                    <div style="position: relative;overflow: hidden; background-color: white; border-color:
+                        gray; border-width: 1px; border-style: solid; width:
+                        820px; height: 549.4px; cursor: auto;">
+                        <div style="position: absolute; bottom: 0px; left: 0px;
+                                width: 800px;" id = "test">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="clearfix" id="ui-container">
+                <div class="interface clearfix" id="expression-interface">
+                    <label>Expression</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">z = </span>
+                        <textarea class="form-control user-input-string" id="expression" value="x*x + y*y">x*x + y*y</textarea>
+                    </div>
+                </div>
+                <div class="interface clearfix" id="xRange-interface">
+                    <label>x Range (min, max)</label>
+                    <input class="form-control user-input-string" id="xRange" value="-50, 50">
+                </div>
+                <div class="interface clearfix" id="yRange-interface">
+                    <label>yRange (min, max)</label>
+                    <input class="form-control user-input-string" id="yRange" value="-50, 50">
+                </div>
+                <div class="interface clearfix" id="resolution-interface">
+                    <label>Resolution</label>
+                    <input class="form-control" value="25" type="hidden" id="resolution">
+                    <div  id="slider-range"></div>
+                    <!-- <span id="slider-range-value"></span> -->
+                </div>
+                <div class="interface clearfix" id="calculate-interface">
+                    <button onclick="calculate()">Caculate</button>
+                </div>
+            </div>
+            <div class="demo-description">
+                <hr>
+                <p>
+                    Bản demo cho phép vẽ mọi hàm theo ý muốn !!!
+                    Ví dụ vẽ biều đồ miền cho phương trình: z = căn(x^2 + y^2)
+                        chỉ cần nhập: Math.sqrt(Math.pow(x, 2)+Math.pow(y, 2))
+                </p>
+            </div>
+            <script src=".\vis-4.21.0\dist\vis.min.js"></script>
+            <script src=".\noUiSlider-13.1.1\distribute\nouislider.min.js"></script>
+            <script src=".\app.js"></script>
+            <script>
+                    var rangeSlider = document.getElementById('slider-range');
+                    noUiSlider.create(rangeSlider, {
+                        start: [25],
+                        connect: true,
+                        range: {
+                            'min': 0,
+                            'max': 100
+                        }
+                    });
+            </script>
+            <script>
+                var rangeSliderValueElement = document.getElementById('slider-range-value');
+                        
+                rangeSlider.noUiSlider.on('update', function (values, handle) {
+                // rangeSliderValueElement.innerHTML = values[handle];
+                document.getElementById('resolution-interface').value = values[handle];
+                    document.getElementById('resolution').value = values[handle];
+                    calculate();
+                });
+            </script>
+        </div>
+    </html>

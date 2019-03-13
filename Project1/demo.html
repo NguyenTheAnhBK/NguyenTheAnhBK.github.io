@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Demo 3d surface</title>
+    <script src="vis-4.21.0/dist/vis.min.js"></script>
+    <script src="plotly.min.js"></script>
+</head>
+<body>
+    <h1>Biểu đồ độ mặn - 03/03/2018</h1>
+    <div style="float:left">
+        <h2>Using Vis</h2>
+        <div id="demo1"></div>
+    </div>
+    <div style="float:right">
+        <h2>Using Plotly</h2>
+        <div id="demo2" style="width:700px; height: 552px;"></div>
+    </div>
+        <script type="text/javascript">
+            // Create and populate a data table.
+            // Độ mặn 3/3/2019 - niptex
+            obj_niptex = [{"value":30.199913043478258,"label":"\/Date(1551546000000)\/"},
+            {"value":30.257403508771933,"label":"\/Date(1551547800000)\/"},
+            {"value":30.253437499999993,"label":"\/Date(1551549600000)\/"},
+            {"value":30.238673469387781,"label":"\/Date(1551551400000)\/"},
+            {"value":30.258680000000005,"label":"\/Date(1551553200000)\/"},
+            {"value":30.303354166666669,"label":"\/Date(1551555000000)\/"},
+            {"value":30.277521739130442,"label":"\/Date(1551556800000)\/"},
+            {"value":30.326208333333337,"label":"\/Date(1551558600000)\/"},
+            {"value":30.344954545454531,"label":"\/Date(1551560400000)\/"},
+            {"value":30.360500000000005,"label":"\/Date(1551562200000)\/"},
+            {"value":30.35098039215686,"label":"\/Date(1551564000000)\/"},
+            {"value":30.366019607843118,"label":"\/Date(1551565800000)\/"},
+            {"value":30.470857142857149,"label":"\/Date(1551567600000)\/"},
+            {"value":30.446272727272717,"label":"\/Date(1551569400000)\/"},
+            {"value":30.37235714285714,"label":"\/Date(1551571200000)\/"},
+            {"value":30.424760000000006,"label":"\/Date(1551573000000)\/"},
+            {"value":30.3607142857143,"label":"\/Date(1551574800000)\/"},
+            {"value":30.341790697674433,"label":"\/Date(1551576600000)\/"},
+            {"value":30.3865111111111,"label":"\/Date(1551578400000)\/"},
+            {"value":30.35425,"label":"\/Date(1551580200000)\/"},
+            {"value":30.3943137254902,"label":"\/Date(1551582000000)\/"},
+            {"value":30.381599999999992,"label":"\/Date(1551583800000)\/"},
+            {"value":30.322512195121945,"label":"\/Date(1551585600000)\/"},
+            {"value":30.414617021276598,"label":"\/Date(1551587400000)\/"},
+            {"value":30.423379999999995,"label":"\/Date(1551589200000)\/"},
+            {"value":30.429980392156867,"label":"\/Date(1551591000000)\/"},
+            {"value":30.405279069767456,"label":"\/Date(1551592800000)\/"},
+            {"value":30.411957446808508,"label":"\/Date(1551594600000)\/"},
+            {"value":30.351916666666657,"label":"\/Date(1551596400000)\/"},
+            {"value":30.403760869565225,"label":"\/Date(1551598200000)\/"},
+            {"value":30.371500000000008,"label":"\/Date(1551600000000)\/"},
+            {"value":30.308088888888886,"label":"\/Date(1551601800000)\/"},
+            {"value":30.460749999999987,"label":"\/Date(1551603600000)\/"},
+            {"value":30.483063829787248,"label":"\/Date(1551605400000)\/"},
+            {"value":30.59889583333333,"label":"\/Date(1551607200000)\/"},
+            {"value":30.617652173913044,"label":"\/Date(1551609000000)\/"},
+            {"value":30.708045454545456,"label":"\/Date(1551610800000)\/"},
+            {"value":30.668588235294102,"label":"\/Date(1551612600000)\/"},
+            {"value":30.73683636363636,"label":"\/Date(1551614400000)\/"},
+            {"value":30.805936170212764,"label":"\/Date(1551616200000)\/"},
+            {"value":30.861176470588241,"label":"\/Date(1551618000000)\/"},
+            {"value":30.911530612244896,"label":"\/Date(1551619800000)\/"},
+            {"value":30.933937500000003,"label":"\/Date(1551621600000)\/"},
+            {"value":30.919829787234033,"label":"\/Date(1551623400000)\/"},
+            {"value":31.006354166666668,"label":"\/Date(1551625200000)\/"},
+            {"value":31.06785714285715,"label":"\/Date(1551627000000)\/"},
+            {"value":31.08612500000001,"label":"\/Date(1551628800000)\/"},
+            {"value":31.15926530612246,"label":"\/Date(1551630600000)\/"}];
+            console.log(obj_niptex.length);
+            objLen = obj_niptex.length;
+        </script>
+
+        <script>
+             //Using Vis
+             var data = new vis.DataSet();
+            var counter = 0;
+            // var xRange = [0, 50];
+            // var yRange = [-50, 50];
+            // var resolution = 100;
+            // var xInterval = (xRange[1]-xRange[0])/resolution;
+            // var yInterval = (yRange[1]-yRange[0])/resolution;
+            for (var x = 0; x < 8; x += 1) {
+                for (var y = 0; y < 6; y+= 1) {
+                    var value = obj_niptex[6*x+y]['value'];
+                    data.add({id:counter++,x:x,y:y,z:value,style:value});
+                }
+            }
+            // specify options
+            var options = {
+                width:  '600px',
+                height: '552px',
+                style: 'surface',
+                showPerspective: true,
+                showGrid: true, 
+                showShadow: false,
+                keepAspectRatio: false, 
+                verticalRatio: 1,
+                gridColor: '#FF0000',
+                showLegend: true,
+                legendLabel: 'Chú thích',
+                tooltip: true,
+                tooltipStyle: {
+                    content: {
+                        borderRadius: '10px'
+                    }
+                },
+                xLabel: 'x',
+                yLabel: 'y',
+                zLabel: 'z'
+            };
+            
+            // Instantiate our graph object.
+            var container = document.getElementById('demo1');
+            var graph3d = new vis.Graph3d(container, data, options);
+        </script>
+
+        <script>
+            // Using plotly
+            var z1 =[];
+            for (var x=0; x < 8; x+=1) {
+                rows = [];
+                for (var y = 0; y < 6; y+=1) {
+                    rows.push(obj_niptex[6*x+y]['value']);
+                }
+                z1.push(rows);
+            }
+            console.log(z1);
+            var data_z1 = { z: z1, type: "surface" };
+            Plotly.newPlot("demo2", [data_z1]);
+        </script>
+</body>
+</html>
