@@ -8,8 +8,8 @@
     <link rel="stylesheet" href=".\demo.css"></link>
 </head>
 <body>
-    <div class="box" id="box">
-        <div class="center-child">
+    <div class="box">
+        <div class="center-child" id="box">
             <p id="value"></p>
         </div>
     </div>
@@ -17,11 +17,11 @@
     <script src=".\node_modules\shake.js\shake.js"></script>
     <script type="text/javascript">
         window.onload = function() {
-            var color = ['goldenrod', 'yellow', 'red', 'rebeccapurple', 'pink', 'white', 'greenyellow'];
+            var color = ['greenyellow', 'goldenrod', 'yellow', 'red', 'rebeccapurple', 'pink', 'white'];
             var i = 0;
             document.getElementById('value').innerHTML = i;
             var myShakeEvent = new Shake({
-                threshold: 0
+                threshold: 10
             });
             
             myShakeEvent.start();
@@ -32,8 +32,12 @@
                 i += 1;
                 document.getElementById('value').innerHTML = i;
                 document.getElementById('box').setAttribute("style", "background-color: "+color[i%7]+";");
-                myShakeEvent.stop();
             }
+            function stopShake(){
+                shakeEvent.stop();
+            }
+
+            if(!("ondevicemotion" in window)){alert("Not Supported");}
         };
         </script>
 </body>
