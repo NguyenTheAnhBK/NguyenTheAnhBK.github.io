@@ -8,15 +8,18 @@
     <link rel="stylesheet" href=".\demo.css"></link>
 </head>
 <body>
-    <div class="box">
+    <div class="box" id="box">
         <div class="center-child">
-            <p>1</p>
+            <p id="value"></p>
         </div>
     </div>
 
     <script src=".\node_modules\shake.js\shake.js"></script>
     <script type="text/javascript">
         window.onload = function() {
+            var color = ['goldenrod', 'yellow', 'red', 'rebeccapurple', 'pink', 'white', 'greenyellow'];
+            var i = 0;
+            document.getElementById('value').innerHTML = i;
             var myShakeEvent = new Shake({
                 threshold: 0
             });
@@ -26,7 +29,8 @@
             window.addEventListener('shake', shakeEventDidOccur, false);
             
             function shakeEventDidOccur () {
-                alert('Shake!');
+                i += 1;
+                document.getElementById('box').setAttribute("style", "background-color: "+color[i%7]);
             }
         };
         </script>
