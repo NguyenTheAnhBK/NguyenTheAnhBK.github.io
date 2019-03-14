@@ -21,7 +21,8 @@
             var i = 0;
             document.getElementById('value').innerHTML = i;
             var myShakeEvent = new Shake({
-                threshold: 0
+                threshold: 0,
+                timeout: 1000
             });
             
             myShakeEvent.start();
@@ -31,7 +32,7 @@
             function shakeEventDidOccur () {
                 i += 1;
                 document.getElementById('value').innerHTML = i;
-                document.getElementById('box').setAttribute("style", "background-color: "+color[i%7]);
+                document.getElementById('box').setAttribute("style", "background-color: "+color[i%7]+";");
             }
         };
         </script>
