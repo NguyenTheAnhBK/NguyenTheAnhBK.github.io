@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Shake!!!</title>
+    <link rel="stylesheet" href=".\demo.css"></link>
+</head>
+<body>
+    <div class="box">
+        <div class="center-child">
+            <p>1</p>
+        </div>
+    </div>
+
+    <script src=".\node_modules\shake.js\shake.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            var myShakeEvent = new Shake({
+                threshold: 15
+            });
+            
+            myShakeEvent.start();
+            
+            window.addEventListener('shake', shakeEventDidOccur, false);
+            
+            function shakeEventDidOccur () {
+                alert('Shake!');
+            }
+        };
+        </script>
+</body>
+</html>
