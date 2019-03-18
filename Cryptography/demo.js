@@ -20,10 +20,20 @@ function module_inverse(k, N){
         return 0;
 }
 
+function stringToArray(text) {
+    var arr = [];
+    for(var i = 0; i < text.length; i++) {
+        charIndex = text.charCodeAt(i);
+        charIndex >= 65 &&  charIndex <= 90 ? arr.push(charIndex - 65): arr.push(charIndex - 97);
+    }
+    return arr;
+}
+
 function encrypt(){
     var ciphers = $('select[name=ciphers]').val();
     text = document.getElementById('inputLeft').value;
     k = parseInt(document.getElementById('myRange').value);
+    kVegenere = document.getElementById('kVegenere').value;
     
     switch(ciphers){
         case '1':
@@ -34,6 +44,8 @@ function encrypt(){
             k2 = parseInt(document.getElementById('myRange2').value);
             document.getElementById('inputRight').value = affine.encrypt(text, k, k2, 26);
             break;
+        case '4':
+            document.getElementById('inputRight').value = vegenere.encrypt(text, kVegenere, 26); break;
     }
 }
 
@@ -41,6 +53,8 @@ function decrypt() {
     var ciphers = $('select[name=ciphers]').val();
     text = document.getElementById('inputLeft').value;
     k = parseInt(document.getElementById('myRange').value);
+    kVegenere = document.getElementById('kVegenere').value;
+
     switch(ciphers){
         case '1':
             document.getElementById('inputRight').value = ceasar.decrypt(text, k, 26); break;
@@ -50,6 +64,8 @@ function decrypt() {
             k2 = parseInt(document.getElementById('myRange2').value);
             document.getElementById('inputRight').value = affine.decrypt(text, k, k2, 26);
             break;
+        case '4':
+        document.getElementById('inputRight').value = vegenere.decrypt(text, kVegenere, 26); break;
     }
 }
 
@@ -127,5 +143,38 @@ function AffineCipher(){
             return plainText;
         }
         return "Can't decode!";
+    }
+}
+
+function VegenereCipher() {
+    this.encrypt = function(plainText, k, N) {
+        // plainText = stringToArray(plainText);
+        k = stringToArray(k);
+        cipherText = "";
+        for(var i = 0; i < plainText.length; i++) {
+            charIndex = plainText.charCodeAt(i);
+            if(charIndex == 32)
+                cipherText += " ";
+            else if(charIndex >= 65 && charIndex <= 90)
+                cipherText += String.fromCharCode(mod(charIndex - 65 + k[i % k.length], N) + 65);
+            else
+                cipherText += String.fromCharCode(mod(charIndex - 97 + k[i % k.length], N) + 97);
+        }
+        return cipherText;
+    }
+
+    this.decrypt = function(cipherText, k, N) {
+        k = stringToArray(k);
+        plainText = "";
+        for(var i = 0; i < cipherText.length; i++) {
+            charIndex = cipherText.charCodeAt(i);
+            if(charIndex == 32)
+                plainText += " ";
+            else if(charIndex >= 65 && charIndex <= 90)
+                plainText += String.fromCharCode(mod(charIndex - 65 - k[i % k.length], N) + 65);
+            else
+                plainText += String.fromCharCode(mod(charIndex - 97 - k[i % k.length], N) + 97);
+        }
+        return plainText;
     }
 }
